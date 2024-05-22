@@ -16,12 +16,12 @@ export const Column = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  min-width: 300px;
+  width: 400px;
   margin: 0 10px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  height: 70vh;
+  height: 75vh;
   overflow: auto;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
@@ -46,6 +46,8 @@ export const Card = styled.div`
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease-in-out;
+  width: 300px;
+  word-wrap: break-word;
 
   &:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -63,4 +65,9 @@ export const Priority = styled.p`
   margin: 0;
   color: #666;
   font-size: 16px;
+`;
+
+export const ColumnContent = styled.div`
+  overflow-y: auto;
+  max-height: 60vh;
 `;

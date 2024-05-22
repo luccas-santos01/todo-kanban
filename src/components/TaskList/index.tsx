@@ -8,6 +8,7 @@ import {
   Card,
   Title,
   Priority,
+  ColumnContent, // Importe o novo componente estilizado
 } from "./TaskList.styles";
 
 const TaskCard: FC<TaskCardProps> = ({ task }) => {
@@ -43,9 +44,11 @@ const TaskList: FC = () => {
     <TaskListContainer>
       <Column>
         <Header>A fazer</Header>
-        {tasks.todo.map((task, index) => (
-          <TaskCard key={index} task={task} />
-        ))}
+        <ColumnContent>
+          {tasks.todo.map((task, index) => (
+            <TaskCard key={index} task={task} />
+          ))}
+        </ColumnContent>
         <TaskButton onClick={() => openModal("todo")}>
           + Adicionar Tarefa
         </TaskButton>
@@ -60,9 +63,11 @@ const TaskList: FC = () => {
       </Column>
       <Column>
         <Header>Em andamento</Header>
-        {tasks.inProgress.map((task, index) => (
-          <TaskCard key={index} task={task} />
-        ))}
+        <ColumnContent>
+          {tasks.inProgress.map((task, index) => (
+            <TaskCard key={index} task={task} />
+          ))}
+        </ColumnContent>
         <TaskButton onClick={() => openModal("inProgress")}>
           + Adicionar Tarefa
         </TaskButton>
@@ -77,9 +82,11 @@ const TaskList: FC = () => {
       </Column>
       <Column>
         <Header>Feito</Header>
-        {tasks.done.map((task, index) => (
-          <TaskCard key={index} task={task} />
-        ))}
+        <ColumnContent>
+          {tasks.done.map((task, index) => (
+            <TaskCard key={index} task={task} />
+          ))}
+        </ColumnContent>
         <TaskButton onClick={() => openModal("done")}>
           + Adicionar Tarefa
         </TaskButton>
