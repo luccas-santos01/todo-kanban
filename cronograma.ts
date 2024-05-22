@@ -22,8 +22,8 @@ Dia 6-7: Configuração de Estilização
 Semana 2: Desenvolvimento da Interface Básica
 Dia 8-10: Implementação da Tela Inicial
 
-[ ] Desenvolver a tela inicial com uma visão geral do projeto.
-[ ] Adicionar navegação básica utilizando React Router.
+[x] Desenvolver a tela inicial com uma visão geral do projeto.
+[x] Adicionar navegação básica utilizando React Router.
 
 Dia 11-14: Desenvolvimento do Quadro Kanban
 
