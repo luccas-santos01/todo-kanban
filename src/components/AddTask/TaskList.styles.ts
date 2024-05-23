@@ -19,7 +19,15 @@ export const Modal = styled.div<ModalProps>`
   transition: opacity 0.3s ease, visibility 0.3s ease;
 `;
 
+export const ModalHeader = styled.h2`
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 34px;
+  text-align: center;
+`;
+
 export const ModalContent = styled.div`
+  position: relative;
   font-family: 'Roboto', sans-serif;
   background-color: white;
   padding: 30px;
@@ -30,19 +38,22 @@ export const ModalContent = styled.div`
   border: 1px solid #ddd;
 `;
 
-export const ModalHeader = styled.h2`
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 34px;
-  text-align: center;
-`;
-
 export const ModalBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 20px;
-  align-items: flex-start;
+  align-items: center;
+
+  > *:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  form {
+    width: 100%;
+
+    .input-group:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
 
   .input-group {
     display: flex;
@@ -70,16 +81,22 @@ export const ModalBody = styled.div`
 
 export const ModalFooter = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 
 export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   border: none;
-  font-size: 1.5em;
-  color: #333;
   cursor: pointer;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const SubmitButton = styled.button`

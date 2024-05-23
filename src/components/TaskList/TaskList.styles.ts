@@ -37,6 +37,7 @@ export const TaskButton = styled.button`
   margin-top: auto;
   background-color: black;
   color: white;
+  cursor: pointer;
 `;
 
 export const ColumnContent = styled.div`
