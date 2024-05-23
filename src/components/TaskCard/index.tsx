@@ -8,6 +8,8 @@ import {
   DeleteButton,
   ButtonContainer,
   BottomContainer,
+  EditButton,
+  ButtonGroup, // Importe o novo componente
 } from "./TaskCard.styles";
 
 interface TaskCardProps {
@@ -30,7 +32,7 @@ const TaskCard: FC<TaskCardProps> = ({
   };
 
   return (
-    <div onClick={() => openEditModal(task)}>
+    <div>
       <Card>
         <Title>{task.title}</Title>
         <ButtonContainer>
@@ -61,18 +63,25 @@ const TaskCard: FC<TaskCardProps> = ({
           >
             Prioridade: {task.type}
           </Priority>
-          <DeleteButton
-            onClick={(event: React.MouseEvent) => {
-              event.stopPropagation();
-              if (
-                window.confirm("Tem certeza de que deseja excluir esta tarefa?")
-              ) {
-                deleteTask(task.id);
-              }
-            }}
-          >
-            Excluir
-          </DeleteButton>
+          <ButtonGroup>
+            {" "}
+            {/* Adicione o novo componente aqui */}
+            <EditButton onClick={() => openEditModal(task)}>Editar</EditButton>
+            <DeleteButton
+              onClick={(event: React.MouseEvent) => {
+                event.stopPropagation();
+                if (
+                  window.confirm(
+                    "Tem certeza de que deseja excluir esta tarefa?"
+                  )
+                ) {
+                  deleteTask(task.id);
+                }
+              }}
+            >
+              Excluir
+            </DeleteButton>
+          </ButtonGroup>
         </BottomContainer>
       </Card>
     </div>

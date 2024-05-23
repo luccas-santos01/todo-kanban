@@ -21,7 +21,7 @@ export const Card = styled.div`
 export const Title = styled.h3`
   margin: 0 0 10px 0;
   color: #333;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 `;
 
@@ -46,18 +46,43 @@ export const ArrowButton = styled.button`
 export const Priority = styled.p`
   margin: 0;
   color: #666;
-  font-size: 16px;
+  font-size: 14px;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
 `;
 
 export const DeleteButton = styled.button`
   background-color: #000;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+
+  &:hover {
+    background-color: #da190b;
+    color: white;
+  }
+`;
+
+export const EditButton = styled.button`
+background-color: #000;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
   transition-duration: 0.4s;
