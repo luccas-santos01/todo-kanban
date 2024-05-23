@@ -1,8 +1,10 @@
-export interface Task {
+export type Task = {
   id: string;
   title: string;
-  type: string;
-}
+  type: "Baixa" | "Média" | "Alta";
+  column: "A Fazer" | "Em Progresso" | "Feito";
+  content: string;
+};
 
 export interface Tasks {
   "A Fazer": Task[];
@@ -11,6 +13,7 @@ export interface Tasks {
 }
 export interface TaskCardProps {
   task: Task;
+  deleteTask: (id: string) => void;
 }
 
 export interface TaskToAdd {
@@ -25,5 +28,7 @@ export interface AddTaskProps {
   modalIsOpen: boolean;
   closeModal: () => void;
   addTask: (task: TaskToAdd) => void;
+  updateTask: (task: Task) => void; // Altere esta linha
   column: keyof Tasks;
+  editTask: Task | null;
 }

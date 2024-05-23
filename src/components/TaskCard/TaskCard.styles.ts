@@ -27,3 +27,34 @@ export const Priority = styled.p`
   color: #666;
   font-size: 16px;
 `;
+
+export const ArrowButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px;
+  &:hover {
+    color: #007BFF;
+  }
+`;
+
+export const DeleteButton = styled.button`
+  background-color: #f44336; // Vermelho
+  color: white; // Texto branco
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+
+  &:hover {
+    background-color: #da190b; // Vermelho escuro
+    color: white;
+  }
+`;

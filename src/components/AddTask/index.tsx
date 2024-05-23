@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AddTaskProps } from "../../types/task";
 import {
@@ -15,16 +15,33 @@ const AddTask: React.FC<AddTaskProps> = ({
   modalIsOpen,
   closeModal,
   addTask,
+  updateTask,
   column,
+  editTask,
 }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [type, setType] = useState<string>("");
+  const [type, setType] = useState<"Baixa" | "Média" | "Alta">("Baixa");
+
+  useEffect(() => {
+    if (editTask) {
+      setTitle(editTask.title);
+      setContent(editTask.content);
+      setType(editTask.type);
+    } else {
+      setTitle("");
+      setContent("");
+      setType("Baixa");
+    }
+  }, [editTask]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const id = uuidv4();
-    addTask({ id, title, content, type, column });
+    if (editTask) {
+      updateTask({ ...editTask, title, content, type, column });
+    } else {
+      addTask({ id: uuidv4(), title, content, type, column });
+    }
     closeModal();
   };
 
@@ -42,7 +59,7 @@ const AddTask: React.FC<AddTaskProps> = ({
         setContent(value);
         break;
       case "type":
-        setType(value);
+        setType(value as "Baixa" | "Média" | "Alta");
         break;
     }
   };
@@ -50,7 +67,9 @@ const AddTask: React.FC<AddTaskProps> = ({
   return (
     <Modal isOpen={modalIsOpen}>
       <ModalContent>
-        <ModalHeader>Adicionar tarefa</ModalHeader>
+        <ModalHeader>
+          {editTask ? "Editar tarefa" : "Adicionar tarefa"}
+        </ModalHeader>
         <ModalBody>
           <form onSubmit={handleSubmit}>
             <div className="input-group">
@@ -87,8 +106,12 @@ const AddTask: React.FC<AddTaskProps> = ({
               </select>
             </div>
             <ModalFooter>
-              <CloseButton onClick={closeModal}>Fechar</CloseButton>
-              <SubmitButton type="submit">Criar tarefa</SubmitButton>
+              <CloseButton type="button" onClick={closeModal}>
+                Fechar
+              </CloseButton>
+              <SubmitButton type="submit">
+                {editTask ? "Salvar tarefa" : "Criar tarefa"}
+              </SubmitButton>
             </ModalFooter>
           </form>
         </ModalBody>

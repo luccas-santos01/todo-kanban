@@ -28,31 +28,24 @@ Dia 8-10: Implementação da Tela Inicial
 Dia 11-14: Desenvolvimento do Quadro Kanban
 
 [x] Implementar o componente do quadro Kanban com colunas para "A Fazer", "Em Progresso" e "Concluído".
-[ ] Adicionar dois botões no card de tarefa para mover entre colunas.
-[ ] Criar componentes de cartão de tarefa.
+[x] Adicionar dois botões no card de tarefa para mover entre colunas.
+[x] Criar componentes de cartão de tarefa.
 
 Semana 3: Funcionalidades de Tarefas
 Dia 15-17: Criação e Edição de Tarefas
 
-[ ] Implementar formulário para criar novas tarefas.
-[ ] Adicionar funcionalidades para editar detalhes das tarefas.
-[ ] Utilizar Formik e Yup para manipulação e validação de formulários.
+[x] Implementar formulário para criar novas tarefas.
+[x] Adicionar funcionalidades para editar detalhes das tarefas.
 
 Dia 18-20: Exclusão de Tarefas
 
-[ ] Adicionar funcionalidade para excluir tarefas.
-[ ] Implementar confirmações para evitar exclusões acidentais.
+[x] Adicionar funcionalidade para excluir tarefas.
+[x] Implementar confirmações para evitar exclusões acidentais.
 
 Dia 21: Refatoração e Ajustes
 
 [ ] Revisar e refatorar o código para melhorar a qualidade e manutenibilidade.
 [ ] Ajustar estilos e layout conforme necessário.
-
-Semana 4: Filtros, Busca e Responsividade
-Dia 22-24: Implementação de Filtros e Busca
-
-[ ] Desenvolver painel de filtros para visualizar tarefas por data, prioridade, categoria, etc.
-[ ] Adicionar funcionalidade de busca para encontrar tarefas rapidamente.
 
 Dia 25-27: Responsividade
 
