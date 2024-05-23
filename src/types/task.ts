@@ -19,8 +19,7 @@ export interface TaskCardProps {
 export interface TaskToAdd {
   id: string;
   title: string;
-  content: string;
-  type: string;
+  type: "Baixa" | "Média" | "Alta";
   column: keyof Tasks;
 }
 

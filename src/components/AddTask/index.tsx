@@ -1,10 +1,11 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import closeIcon from "../../assets/close.png";
 import { v4 as uuidv4 } from "uuid";
 import { AddTaskProps } from "../../types/task";
 import {
   Modal,
-  ModalContent,
   ModalHeader,
+  ModalContent,
   ModalBody,
   ModalFooter,
   CloseButton,
@@ -20,17 +21,14 @@ const AddTask: React.FC<AddTaskProps> = ({
   editTask,
 }) => {
   const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
   const [type, setType] = useState<"Baixa" | "Média" | "Alta">("Baixa");
 
   useEffect(() => {
     if (editTask) {
       setTitle(editTask.title);
-      setContent(editTask.content);
       setType(editTask.type);
     } else {
       setTitle("");
-      setContent("");
       setType("Baixa");
     }
   }, [editTask]);
@@ -38,9 +36,9 @@ const AddTask: React.FC<AddTaskProps> = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (editTask) {
-      updateTask({ ...editTask, title, content, type, column });
+      updateTask({ ...editTask, title, type, column });
     } else {
-      addTask({ id: uuidv4(), title, content, type, column });
+      addTask({ id: uuidv4(), title, type, column });
     }
     closeModal();
   };
@@ -54,9 +52,6 @@ const AddTask: React.FC<AddTaskProps> = ({
     switch (name) {
       case "title":
         setTitle(value);
-        break;
-      case "content":
-        setContent(value);
         break;
       case "type":
         setType(value as "Baixa" | "Média" | "Alta");
@@ -83,16 +78,7 @@ const AddTask: React.FC<AddTaskProps> = ({
               />
             </div>
             <div className="input-group">
-              <label>Conteúdo:</label>
-              <textarea
-                name="content"
-                value={content}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="input-group">
-              <label>Tipo:</label>
+              <label>Priodidade:</label>
               <select
                 name="type"
                 value={type}
@@ -107,7 +93,7 @@ const AddTask: React.FC<AddTaskProps> = ({
             </div>
             <ModalFooter>
               <CloseButton type="button" onClick={closeModal}>
-                Fechar
+                <img src={closeIcon} alt="Fechar" />
               </CloseButton>
               <SubmitButton type="submit">
                 {editTask ? "Salvar tarefa" : "Criar tarefa"}
