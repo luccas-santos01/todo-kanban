@@ -1,14 +1,29 @@
-interface Task {
+export interface Task {
+  id: string;
   title: string;
-  content: string;
   type: string;
 }
 
-interface Tasks {
-  todo: Task[];
-  inProgress: Task[];
-  done: Task[];
+export interface Tasks {
+  "A Fazer": Task[];
+  "Em Progresso": Task[];
+  "Feito": Task[];
 }
-interface TaskCardProps {
+export interface TaskCardProps {
   task: Task;
+}
+
+export interface TaskToAdd {
+  id: string;
+  title: string;
+  content: string;
+  type: string;
+  column: keyof Tasks;
+}
+
+export interface AddTaskProps {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  addTask: (task: TaskToAdd) => void;
+  column: keyof Tasks;
 }

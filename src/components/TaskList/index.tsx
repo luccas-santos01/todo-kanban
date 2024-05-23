@@ -1,31 +1,23 @@
 import { useState, FC } from "react";
 import AddTask from "../AddTask";
+import { Task, Tasks } from "../../types/task";
+import TaskCard from "../TaskCard";
 import {
   Column,
   Header,
   TaskButton,
   TaskListContainer,
-  Card,
-  Title,
-  Priority,
-  ColumnContent, // Importe o novo componente estilizado
+  ColumnContent,
 } from "./TaskList.styles";
 
-const TaskCard: FC<TaskCardProps> = ({ task }) => {
-  return (
-    <Card>
-      <Title>{task.title}</Title>
-      <Priority>Prioridade: {task.type}</Priority>
-    </Card>
-  );
-};
+const columnOrder: (keyof Tasks)[] = ["A Fazer", "Em Progresso", "Feito"];
 
 const TaskList: FC = () => {
   const [modalColumn, setModalColumn] = useState<keyof Tasks | null>(null);
   const [tasks, setTasks] = useState<Tasks>({
-    todo: [],
-    inProgress: [],
-    done: [],
+    "A Fazer": [],
+    "Em Progresso": [],
+    Feito: [],
   });
 
   const addTask = (column: keyof Tasks, task: Task) => {
@@ -42,63 +34,27 @@ const TaskList: FC = () => {
 
   return (
     <TaskListContainer>
-      <Column>
-        <Header>A fazer</Header>
-        <ColumnContent>
-          {tasks.todo.map((task, index) => (
-            <TaskCard key={index} task={task} />
-          ))}
-        </ColumnContent>
-        <TaskButton onClick={() => openModal("todo")}>
-          + Adicionar Tarefa
-        </TaskButton>
-        {modalColumn === "todo" && (
-          <AddTask
-            modalIsOpen={modalColumn === "todo"}
-            closeModal={() => setModalColumn(null)}
-            addTask={(task: Task) => addTask("todo", task)}
-            column="todo"
-          />
-        )}
-      </Column>
-      <Column>
-        <Header>Em andamento</Header>
-        <ColumnContent>
-          {tasks.inProgress.map((task, index) => (
-            <TaskCard key={index} task={task} />
-          ))}
-        </ColumnContent>
-        <TaskButton onClick={() => openModal("inProgress")}>
-          + Adicionar Tarefa
-        </TaskButton>
-        {modalColumn === "inProgress" && (
-          <AddTask
-            modalIsOpen={modalColumn === "inProgress"}
-            closeModal={() => setModalColumn(null)}
-            addTask={(task: Task) => addTask("inProgress", task)}
-            column="inProgress"
-          />
-        )}
-      </Column>
-      <Column>
-        <Header>Feito</Header>
-        <ColumnContent>
-          {tasks.done.map((task, index) => (
-            <TaskCard key={index} task={task} />
-          ))}
-        </ColumnContent>
-        <TaskButton onClick={() => openModal("done")}>
-          + Adicionar Tarefa
-        </TaskButton>
-        {modalColumn === "done" && (
-          <AddTask
-            modalIsOpen={modalColumn === "done"}
-            closeModal={() => setModalColumn(null)}
-            addTask={(task: Task) => addTask("done", task)}
-            column="done"
-          />
-        )}
-      </Column>
+      {columnOrder.map((key) => (
+        <Column key={key}>
+          <Header>{key}</Header>
+          <ColumnContent>
+            {tasks[key].map((task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}
+          </ColumnContent>
+          <TaskButton onClick={() => openModal(key)}>
+            + Adicionar Tarefa
+          </TaskButton>
+          {modalColumn === key && (
+            <AddTask
+              modalIsOpen={modalColumn === key}
+              closeModal={() => setModalColumn(null)}
+              addTask={(task: Task) => addTask(key, task)}
+              column={key}
+            />
+          )}
+        </Column>
+      ))}
     </TaskListContainer>
   );
 };

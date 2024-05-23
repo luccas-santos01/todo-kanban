@@ -27,8 +27,8 @@ Dia 8-10: Implementação da Tela Inicial
 
 Dia 11-14: Desenvolvimento do Quadro Kanban
 
-[ ] Implementar o componente do quadro Kanban com colunas para "A Fazer", "Em Progresso" e "Concluído".
-[ ] Integrar a biblioteca react-beautiful-dnd para arrastar e soltar tarefas entre colunas.
+[x] Implementar o componente do quadro Kanban com colunas para "A Fazer", "Em Progresso" e "Concluído".
+[ ] Adicionar dois botões no card de tarefa para mover entre colunas.
 [ ] Criar componentes de cartão de tarefa.
 
 Semana 3: Funcionalidades de Tarefas

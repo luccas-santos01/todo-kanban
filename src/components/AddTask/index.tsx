@@ -1,4 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { AddTaskProps } from "../../types/task";
 import {
   Modal,
   ModalContent,
@@ -8,18 +10,6 @@ import {
   CloseButton,
   SubmitButton,
 } from "./TaskList.styles";
-
-interface AddTaskProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
-  addTask: (task: {
-    title: string;
-    content: string;
-    type: string;
-    column: string;
-  }) => void;
-  column: string;
-}
 
 const AddTask: React.FC<AddTaskProps> = ({
   modalIsOpen,
@@ -33,7 +23,8 @@ const AddTask: React.FC<AddTaskProps> = ({
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    addTask({ title, content, type, column });
+    const id = uuidv4();
+    addTask({ id, title, content, type, column });
     closeModal();
   };
 
