@@ -68,7 +68,7 @@ const AddTask: React.FC<AddTaskProps> = ({
         <ModalBody>
           <form onSubmit={handleSubmit}>
             <div className="input-group">
-              <label>Título:</label>
+              <label>Descrição:</label>
               <input
                 type="text"
                 name="title"
@@ -85,7 +85,6 @@ const AddTask: React.FC<AddTaskProps> = ({
                 onChange={handleInputChange}
                 required
               >
-                <option value="">Prioridade</option>
                 <option value="Alta">Alta</option>
                 <option value="Média">Média</option>
                 <option value="Baixa">Baixa</option>
@@ -96,7 +95,7 @@ const AddTask: React.FC<AddTaskProps> = ({
                 <img src={closeIcon} alt="Fechar" />
               </CloseButton>
               <SubmitButton type="submit">
-                {editTask ? "Salvar tarefa" : "Criar tarefa"}
+                {editTask ? "Salvar Tarefa" : "Criar Tarefa"}
               </SubmitButton>
             </ModalFooter>
           </form>
