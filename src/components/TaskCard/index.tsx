@@ -9,7 +9,7 @@ import {
   ButtonContainer,
   BottomContainer,
   EditButton,
-  ButtonGroup, // Importe o novo componente
+  ButtonGroup,
 } from "./TaskCard.styles";
 
 interface TaskCardProps {
@@ -65,7 +65,6 @@ const TaskCard: FC<TaskCardProps> = ({
           </Priority>
           <ButtonGroup>
             {" "}
-            {/* Adicione o novo componente aqui */}
             <EditButton onClick={() => openEditModal(task)}>Editar</EditButton>
             <DeleteButton
               onClick={(event: React.MouseEvent) => {
