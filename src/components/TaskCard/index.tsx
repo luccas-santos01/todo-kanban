@@ -27,7 +27,7 @@ const TaskCard: FC<TaskCardProps> = ({
 }) => {
   const priorityColors: { [key in Task["type"]]: string } = {
     Baixa: "green",
-    Média: "yellow",
+    Média: "orange",
     Alta: "red",
   };
 
