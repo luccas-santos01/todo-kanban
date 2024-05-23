@@ -1,33 +1,60 @@
+import { useState, FC } from "react";
 import AddTask from "../AddTask";
-import { useState } from "react";
-import { Column, Header, TaskButton, TaskListContainer } from "./TaskList.styles";
+import { Task, Tasks } from "../../types/task";
+import TaskCard from "../TaskCard";
+import {
+  Column,
+  Header,
+  TaskButton,
+  TaskListContainer,
+  ColumnContent,
+} from "./TaskList.styles";
 
-const TaskList = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const columnOrder: (keyof Tasks)[] = ["A Fazer", "Em Progresso", "Feito"];
 
-  const openModal = () => {
-    setModalIsOpen(true);
+const TaskList: FC = () => {
+  const [modalColumn, setModalColumn] = useState<keyof Tasks | null>(null);
+  const [tasks, setTasks] = useState<Tasks>({
+    "A Fazer": [],
+    "Em Progresso": [],
+    Feito: [],
+  });
+
+  const addTask = (column: keyof Tasks, task: Task) => {
+    setTasks((oldTasks) => ({
+      ...oldTasks,
+      [column]: [...oldTasks[column], task],
+    }));
+    setModalColumn(null);
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const openModal = (column: keyof Tasks) => {
+    setModalColumn(column);
   };
 
   return (
     <TaskListContainer>
-      <Column>
-        <Header>A fazer</Header>
-        <TaskButton onClick={openModal}>Adicionar tarefa</TaskButton>
-      </Column>
-      <Column>
-        <Header>Em andamento</Header>
-        <TaskButton onClick={openModal}>Adicionar tarefa</TaskButton>
-      </Column>
-      <Column>
-        <Header>Feito</Header>
-        <TaskButton onClick={openModal}>Adicionar tarefa</TaskButton>
-        <AddTask modalIsOpen={modalIsOpen} closeModal={closeModal} />
-      </Column>
+      {columnOrder.map((key) => (
+        <Column key={key}>
+          <Header>{key}</Header>
+          <ColumnContent>
+            {tasks[key].map((task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}
+          </ColumnContent>
+          <TaskButton onClick={() => openModal(key)}>
+            + Adicionar Tarefa
+          </TaskButton>
+          {modalColumn === key && (
+            <AddTask
+              modalIsOpen={modalColumn === key}
+              closeModal={() => setModalColumn(null)}
+              addTask={(task: Task) => addTask(key, task)}
+              column={key}
+            />
+          )}
+        </Column>
+      ))}
     </TaskListContainer>
   );
 };

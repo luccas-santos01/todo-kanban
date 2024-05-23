@@ -16,12 +16,12 @@ export const Column = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  min-width: 300px;
+  width: 400px;
   margin: 0 10px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  height: 70vh;
+  height: 75vh;
   overflow: auto;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
@@ -37,4 +37,9 @@ export const TaskButton = styled.button`
   margin-top: auto;
   background-color: black;
   color: white;
+`;
+
+export const ColumnContent = styled.div`
+  overflow-y: auto;
+  max-height: 60vh;
 `;

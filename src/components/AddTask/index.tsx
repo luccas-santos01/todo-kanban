@@ -1,4 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { AddTaskProps } from "../../types/task";
 import {
   Modal,
   ModalContent,
@@ -9,19 +11,20 @@ import {
   SubmitButton,
 } from "./TaskList.styles";
 
-interface AddTaskProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
-}
-
-const AddTask: React.FC<AddTaskProps> = ({ modalIsOpen, closeModal }) => {
+const AddTask: React.FC<AddTaskProps> = ({
+  modalIsOpen,
+  closeModal,
+  addTask,
+  column,
+}) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [type, setType] = useState<string>("");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log({ title, content, type });
+    const id = uuidv4();
+    addTask({ id, title, content, type, column });
     closeModal();
   };
 
@@ -78,17 +81,17 @@ const AddTask: React.FC<AddTaskProps> = ({ modalIsOpen, closeModal }) => {
                 required
               >
                 <option value="">Prioridade</option>
-                <option value="tipo1">Alta</option>
-                <option value="tipo2">Média</option>
-                <option value="tipo3">Baixa</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
               </select>
             </div>
+            <ModalFooter>
+              <CloseButton onClick={closeModal}>Fechar</CloseButton>
+              <SubmitButton type="submit">Criar tarefa</SubmitButton>
+            </ModalFooter>
           </form>
         </ModalBody>
-        <ModalFooter>
-          <CloseButton onClick={closeModal}>Fechar</CloseButton>
-          <SubmitButton type="submit">Criar tarefa</SubmitButton>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
