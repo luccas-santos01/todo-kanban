@@ -1,4 +1,3 @@
-// TaskList.tsx
 import { useState, FC } from "react";
 import AddTask from "../AddTask";
 import { Task, TaskToAdd, Tasks } from "../../types/task";
