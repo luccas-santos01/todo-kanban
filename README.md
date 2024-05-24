@@ -35,3 +35,7 @@ A Lista de Tarefas de Bolso é uma aplicação simples de lista de tarefas, proj
 3. Para editar uma tarefa, clique no botão "Editar" ao lado da tarefa desejada e faça as alterações necessárias.
 4. Para excluir uma tarefa, clique no botão "Excluir" ao lado da tarefa desejada e confirme a exclusão.
 
+## Deploy
+
+Você pode acessar a aplicação implantada [aqui](https://luccas-santos01.github.io/toDo-kanban/).
+
