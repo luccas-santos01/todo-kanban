@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Task } from "../../types/task";
+import { Task, TaskCardProps } from "../../types/task";
+import Swal from "sweetalert2";
 import {
   Card,
   Title,
@@ -9,15 +10,8 @@ import {
   ButtonContainer,
   BottomContainer,
   EditButton,
-  ButtonGroup, // Importe o novo componente
+  ButtonGroup,
 } from "./TaskCard.styles";
-
-interface TaskCardProps {
-  task: Task;
-  moveTask: (id: string, direction: "left" | "right") => void;
-  openEditModal: (task: Task) => void;
-  deleteTask: (id: string) => void;
-}
 
 const TaskCard: FC<TaskCardProps> = ({
   task,
@@ -65,16 +59,18 @@ const TaskCard: FC<TaskCardProps> = ({
           </Priority>
           <ButtonGroup>
             {" "}
-            {/* Adicione o novo componente aqui */}
             <EditButton onClick={() => openEditModal(task)}>Editar</EditButton>
             <DeleteButton
-              onClick={(event: React.MouseEvent) => {
+              onClick={async (event: React.MouseEvent) => {
                 event.stopPropagation();
-                if (
-                  window.confirm(
-                    "Tem certeza de que deseja excluir esta tarefa?"
-                  )
-                ) {
+                const result = await Swal.fire({
+                  title: "Tem certeza de que deseja excluir esta tarefa?",
+                  showCancelButton: true,
+                  confirmButtonText: "Sim",
+                  denyButtonText: "Cancelar",
+                });
+
+                if (result.isConfirmed) {
                   deleteTask(task.id);
                 }
               }}

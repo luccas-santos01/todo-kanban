@@ -11,6 +11,7 @@ import {
   CloseButton,
   SubmitButton,
 } from "./TaskList.styles";
+import { TaskPriority, TASK_PRIORITY } from "./constants";
 
 const AddTask: React.FC<AddTaskProps> = ({
   modalIsOpen,
@@ -21,15 +22,19 @@ const AddTask: React.FC<AddTaskProps> = ({
   editTask,
 }) => {
   const [title, setTitle] = useState<string>("");
-  const [type, setType] = useState<"Baixa" | "Média" | "Alta">("Baixa");
+  const [type, setType] = useState<TaskPriority>(TASK_PRIORITY.LOW);
+
+  const clearState = () => {
+    setTitle("");
+    setType(TASK_PRIORITY.LOW);
+  };
 
   useEffect(() => {
     if (editTask) {
       setTitle(editTask.title);
       setType(editTask.type);
     } else {
-      setTitle("");
-      setType("Baixa");
+      clearState();
     }
   }, [editTask]);
 
@@ -54,7 +59,7 @@ const AddTask: React.FC<AddTaskProps> = ({
         setTitle(value);
         break;
       case "type":
-        setType(value as "Baixa" | "Média" | "Alta");
+        setType(value as TaskPriority);
         break;
     }
   };
@@ -85,9 +90,11 @@ const AddTask: React.FC<AddTaskProps> = ({
                 onChange={handleInputChange}
                 required
               >
-                <option value="Alta">Alta</option>
-                <option value="Média">Média</option>
-                <option value="Baixa">Baixa</option>
+                <option value={TASK_PRIORITY.HIGH}>{TASK_PRIORITY.HIGH}</option>
+                <option value={TASK_PRIORITY.MEDIUM}>
+                  {TASK_PRIORITY.MEDIUM}
+                </option>
+                <option value={TASK_PRIORITY.LOW}>{TASK_PRIORITY.LOW}</option>
               </select>
             </div>
             <ModalFooter>

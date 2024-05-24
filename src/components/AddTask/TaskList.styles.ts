@@ -41,7 +41,7 @@ export const ModalContent = styled.div`
 export const ModalBody = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   > *:not(:last-child) {
     margin-bottom: 20px;
