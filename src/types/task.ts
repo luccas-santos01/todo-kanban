@@ -27,7 +27,14 @@ export interface AddTaskProps {
   modalIsOpen: boolean;
   closeModal: () => void;
   addTask: (task: TaskToAdd) => void;
-  updateTask: (task: Task) => void; // Altere esta linha
+  updateTask: (task: Task) => void;
   column: keyof Tasks;
   editTask: Task | null;
+}
+
+export interface TaskCardProps {
+  task: Task;
+  moveTask: (id: string, direction: "left" | "right") => void;
+  openEditModal: (task: Task) => void;
+  deleteTask: (id: string) => void;
 }

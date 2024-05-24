@@ -2,6 +2,11 @@ import { useState, FC } from "react";
 import AddTask from "../AddTask";
 import { Task, TaskToAdd, Tasks } from "../../types/task";
 import TaskCard from "../TaskCard";
+import { addTask } from "./functions/addTask";
+import { deleteTask } from "./functions/deleteTask";
+import { moveTask } from "./functions/moveTask";
+import { openEditModal } from "./functions/openEditModal";
+import { updateTask } from "./functions/updateTask";
 import {
   Column,
   Header,
@@ -10,10 +15,11 @@ import {
   ColumnContent,
 } from "./TaskList.styles";
 
-const columnOrder: (keyof Tasks)[] = ["A Fazer", "Em Progresso", "Feito"];
+type Column = 'A Fazer' | 'Em Progresso' | 'Feito';
+const columnOrder: Column[] = ['A Fazer', 'Em Progresso', 'Feito'];
 
 const TaskList: FC = () => {
-  const [modalColumn, setModalColumn] = useState<keyof Tasks | null>(null);
+  const [modalColumn, setModalColumn] = useState<Column | null>(null);
   const [tasks, setTasks] = useState<Tasks>({
     "A Fazer": [],
     "Em Progresso": [],
@@ -21,107 +27,12 @@ const TaskList: FC = () => {
   });
   const [editTask, setEditTask] = useState<Task | null>(null);
 
-  const addTask = (column: keyof Tasks, task: TaskToAdd) => {
-    setTasks((oldTasks) => ({
-      ...oldTasks,
-      [column]: [...oldTasks[column], task],
-    }));
-    setModalColumn(null);
-  };
-
-  const updateTask = (updatedTask: Task) => {
-    setTasks((oldTasks) => {
-      const column = updatedTask.column;
-      return {
-        ...oldTasks,
-        [column]: oldTasks[column].map((task) =>
-          task.id === updatedTask.id ? updatedTask : task
-        ),
-      };
-    });
-  };
-
-  const deleteTask = (id: string) => {
-    setTasks((oldTasks) => {
-      const columnNames = Object.keys(oldTasks) as (keyof Tasks)[];
-      let fromColumn: keyof Tasks | undefined;
-
-      const foundColumn = columnNames.find((column) => {
-        const taskIndex = oldTasks[column].findIndex((t) => t.id === id);
-        if (taskIndex !== -1) {
-          return true;
-        }
-        return false;
-      });
-
-      fromColumn = foundColumn;
-
-      if (!fromColumn) {
-        return oldTasks;
-      }
-
-      return {
-        ...oldTasks,
-        [fromColumn]: oldTasks[fromColumn].filter((t) => t.id !== id),
-      };
-    });
-  };
-
-  const openModal = (column: keyof Tasks) => {
+  const openModal = (column: Column) => {
     setModalColumn(column);
   };
 
   const closeModal = () => {
-    setEditTask(null);
     setModalColumn(null);
-  };
-
-  const moveTask = (id: string, direction: "left" | "right") => {
-    setTasks((oldTasks) => {
-      const columnNames = Object.keys(oldTasks) as (keyof Tasks)[];
-      let task: Task | undefined;
-      let fromColumn: keyof Tasks | undefined;
-      let toColumn: keyof Tasks | undefined;
-
-      const foundColumn = columnNames.find((column) => {
-        const taskIndex = oldTasks[column].findIndex((t) => t.id === id);
-        if (taskIndex !== -1) {
-          task = oldTasks[column][taskIndex];
-          return true;
-        }
-        return false;
-      });
-
-      fromColumn = foundColumn;
-
-      if (!task || !fromColumn) {
-        return oldTasks;
-      }
-
-      const columnIndex = columnNames.indexOf(fromColumn);
-      if (direction === "left" && columnIndex > 0) {
-        toColumn = columnNames[columnIndex - 1];
-      } else if (
-        direction === "right" &&
-        columnIndex < columnNames.length - 1
-      ) {
-        toColumn = columnNames[columnIndex + 1];
-      }
-
-      if (!toColumn) {
-        return oldTasks;
-      }
-      return {
-        ...oldTasks,
-        [fromColumn]: oldTasks[fromColumn].filter((t) => t.id !== id),
-        [toColumn]: [...oldTasks[toColumn], { ...task, column: toColumn }],
-      };
-    });
-  };
-
-  const openEditModal = (task: Task) => {
-    setEditTask(task);
-    setModalColumn(task.column);
   };
 
   return (
@@ -134,9 +45,13 @@ const TaskList: FC = () => {
               <TaskCard
                 key={task.id}
                 task={task}
-                moveTask={moveTask}
-                openEditModal={openEditModal}
-                deleteTask={deleteTask}
+                moveTask={(id: string, direction: "left" | "right") =>
+                  moveTask(id, direction, setTasks)
+                }
+                openEditModal={(task: Task) =>
+                  openEditModal(task, setEditTask, setModalColumn)
+                }
+                deleteTask={(id: string) => deleteTask(id, setTasks)}
               />
             ))}
           </ColumnContent>
@@ -147,8 +62,10 @@ const TaskList: FC = () => {
             <AddTask
               modalIsOpen={modalColumn === key}
               closeModal={closeModal}
-              addTask={(task: TaskToAdd) => addTask(key, task)}
-              updateTask={updateTask}
+              addTask={(task: TaskToAdd) =>
+                addTask(key, task, setTasks, setModalColumn)
+              }
+              updateTask={(task: Task) => updateTask(task, setTasks)}
               column={key}
               editTask={editTask}
             />

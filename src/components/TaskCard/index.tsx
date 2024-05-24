@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Task } from "../../types/task";
+import { Task, TaskCardProps } from "../../types/task";
 import Swal from "sweetalert2";
 import {
   Card,
@@ -12,13 +12,6 @@ import {
   EditButton,
   ButtonGroup,
 } from "./TaskCard.styles";
-
-interface TaskCardProps {
-  task: Task;
-  moveTask: (id: string, direction: "left" | "right") => void;
-  openEditModal: (task: Task) => void;
-  deleteTask: (id: string) => void;
-}
 
 const TaskCard: FC<TaskCardProps> = ({
   task,
